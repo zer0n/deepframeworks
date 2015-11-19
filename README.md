@@ -136,7 +136,7 @@ The architecture is fairly hacky: the whole code base is Python where C/CUDA cod
 Torch7 and nn libraries are also well-designed with clean, modular interfaces.
 
 ## Ecosystem
-#### Theano: 5
+#### Tensorflow: 5
 Python and C++
 
 #### Theano: 4
