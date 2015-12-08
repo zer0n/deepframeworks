@@ -109,7 +109,7 @@ Caffe is C++ based, which can be compiled on a variety of devices. It is cross-p
 #### CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
 Like Caffe, CNTK is also C++ based and is cross-platform. Hence, deployment should be easy in most cases. However, to my understanding, it doesn't work on ARM architecture, which limits its its capability on mobile devices. 
 
-#### TensorFLow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
+#### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
 TF supports C++ interface and the library can be compiled/optimized on ARM architectures because it uses [Eigen](eigen.tuxfamily.org) (instead of a BLAS library). This means that you can deploy your trained models on a variety of devices (servers or mobile devices) without having to implement a separate model decoder or load Python/LuaJIT interpreter [3].
 
 TF doesn't work on Windows yet so TF models can't be deployed on Windows devices though.
@@ -135,7 +135,7 @@ For what it can do, Caffe is simply fast.
 #### CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
 For what it can do, CNTK is simply fast.
 
-#### TensorFLow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png">
+#### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png">
 TF only uses cuDNN v2 and even so, its performance is ~1.5x slower than Torch with cuDNN v2. It also runs out of memory when training GoogleNet with batch size 128. More details [here](https://github.com/soumith/convnet-benchmarks/issues/66).
 
 A few issues have been identified in that thread: excessive memory allocation, different tensor layout from cuDNN’s, no in-place op, etc.
