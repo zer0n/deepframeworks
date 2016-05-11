@@ -31,15 +31,15 @@ Caffe is perhaps the first mainstream industry-grade deep learning toolkit, star
 
 However, its support for recurrent networks and language modeling in general is poor, due to its legacy architecture, which's limitations are detailed in the [architecture section](#architecture).
 
-#### CNTK
+#### CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_2_stars.png">
 CNTK is a deep learning system started by the speech people who [started the deep learning craze](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.185.1908&rep=rep1&type=pdf) and grown into a more general platform-independent deep learning system. It is better known in the speech community than in the general deep learning community.
 
 In CNTK (as in TensorFlow and Theano), a network is specified as a symbolic graph of vector operations, such as matrix add/multiply or convolution. A layer is just a composition of those operations. The fine granularity of the building blocks (operations) allows users to invent new complex layer types without implementing them in a low-level language (as in Caffe).
 
-More to be written ...
+As of today, CNTK is not usable for a variety of tasks such as sequence-2-sequence.
 
 
-#### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_stars.png">
+#### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
 **State-of-the-art models**
 
 - RNN API and implementation are suboptimal. The team also commented about it [here](https://github.com/tensorflow/tensorflow/issues/7) and [here](https://groups.google.com/a/tensorflow.org/forum/?utm_medium=email&utm_source=footer#!msg/discuss/B8HyI0tVtPY/aR43OIuUAwAJ).
@@ -47,15 +47,13 @@ More to be written ...
 - No 3D convolution, which is useful for video recognition
 
 **New models**
-Since TF uses symbolic graph of vector operations approach, specifying a new network is fairly easy.
+Since TF uses symbolic graph of vector operations approach, specifying a new network is fairly easy. Although it doesn't support symbolic loop yet (at least not well tested/documented, as of 05/2016), RNNs can be made easy and efficient using the [bucketing trick](https://www.tensorflow.org/versions/r0.8/tutorials/seq2seq/index.html#bucketing-and-padding).
 
-The public release of TF doesn’t yet support loop and condition controls in the graph definition. This makes RNN implementations less ideal because they have to use Python loops and no graph compiler optimization can be made.
-
-Google claimed to have this in their [white paper](http://download.tensorflow.org/paper/whitepaper2015.pdf) and [details are still being worked out](https://github.com/tensorflow/tensorflow/issues/208).
+However, TF has a major weakness in terms of modeling flexibility. Every computational flow has be constructed as a static graph. That makes some computations difficult, such as [beam search](https://github.com/tensorflow/tensorflow/issues/654) (which is used frequently in sequence prediction tasks). 
 
 
-#### Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
-**State-of-the-art models.** Theano has implementation for most state-of-the-art networks, either in the form of a higher-level framework (e.g. [Blocks](https://github.com/mila-udem/blocks), [Keras](https://github.com/fchollet/keras), etc.) or in pure Theano. In fact, many recent research ideas (e.g. attentional model) started here.
+#### Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
+**State-of-the-art models.** Theano has implementation for most state-of-the-art networks, either in the form of a higher-level framework (e.g. [Blocks](https://github.com/mila-udem/blocks), [Keras](https://github.com/fchollet/keras), etc.) or in pure Theano.
 
 **New models.** Theano pioneered the trend of using symbolic graph for programming a network. Theano's symbolic API supports looping control, so-called [scan](http://deeplearning.net/software/theano/tutorial/loop.html), which makes implementing RNNs easy and efficient. Users don't always have to define a new model at the tensor operations level. There are a few higher-level frameworks, mentioned above, which make model definition and training simpler.
 
@@ -69,7 +67,7 @@ Google claimed to have this in their [white paper](http://download.tensorflow.or
 
 However, unlike Caffe, defining a new layer in Torch is much easier because you don't have to program in C++. Plus, in Torch, the difference between new layer definition and network definition is minimal. In Caffe, layers are defined in C++ while networks are defined via `Protobuf`.
 
-Hence, in my opinion, Torch is as flexible as Theano.
+Torch is more flexible than TensorFlow and Theano in that it is imperative while TF/Theano are declarative (i.e. one has to declare a computational graph). That makes some operations, e.g. beam search, much easier to do in Torch.
 
 ---
 <center>
@@ -129,32 +127,25 @@ All of these toolkits call cuDNN so as long as there’s no major computations o
 
 Soumith@FB has done some [benchmarking for ConvNets](https://github.com/soumith/convnet-benchmarks). Deep Learning is not just about feedforward convnets, not just about ImageNet, and certainly not just about a few passes over the network. However, Soumith’s benchmark is the only notable one as of today. So we will base the Single-GPU performance rating based on his benchmark.
 
-#### Caffe <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
-For what it can do, Caffe is simply fast.
+#### TensorFlow and Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
 
-#### CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
-For what it can do, CNTK is simply fast.
+TensorFlow used to be slow when it first came out but as of 05/2016, it has reached the ballpark of other frameworks in terms of ConvNet speed. This is not surprising because every framework nowadays calls CuDNN for the actual computations.
 
-#### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png">
-TF only uses cuDNN v2 and even so, its performance is ~1.5x slower than Torch with cuDNN v2. It also runs out of memory when training GoogleNet with batch size 128. More details [here](https://github.com/soumith/convnet-benchmarks/issues/66).
+Here's my latest micro benchmark of TensorFlow 0.8 vs before. The measurement is latency, in milliseconds, for one full minibatch forward-backward pass on a single Titan X GPU. 
 
-A few issues have been identified in that thread: excessive memory allocation, different tensor layout from cuDNN’s, no in-place op, etc.
+| Network | TF 0.6 [[ref](https://github.com/soumith/convnet-benchmarks/blob/efb3d9321d14856f49951980dbea2f554190161a/README.md)]                                                                     | TF 0.8 [my run] | Torch FP32 [my run] |
+|:------------------------:|:-----------------------------------------------------------------------------------------------------------:| ----------:| ------------:|
+| AlexNet      | 292  | 97  |  81  |
+| Inception v1 | 1237 | 518 |  470 |
+
 
 #### Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_3_stars.png">
 On big networks, Theano’s performance is on par with Torch7, according to [this benchmark](http://arxiv.org/pdf/1211.5590v1.pdf). The main issue of Theano is startup time, which is terrible, because Theano has to compile C/CUDA code to binary. We don’t always train big models. In fact, DL researchers often spend more time debugging than training big models. TensorFlow doesn’t have this problem. It simply maps the symbolic tensor operations to the already-compiled corresponding function calls.
 
 Even `import theano` takes time because this `import` apparently does a lot of stuffs. Also, after `import Theano`, you are stuck with a pre-configured device (e.g. `GPU0`).
 
-#### Torch <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_5_stars.png">
-Simply awesome without the \*bugs\* that TensorFlow and Theano have.
-
 ### Multi-GPU
-According to a recent benchmarking study by the CNTK team (see figure below), CNTK simply leads the pack in the multi-GPU and distributed deep learning regime. CNTK implements [1-bit SGD and adaptive minibatching in Seide et al.](http://research.microsoft.com/apps/pubs/?id=230137), which are truly gems for distributed training. This capability is unique among all deep learning toolkits.
-
-<center><img src="http://download-codeplex.sec.s-msft.com/Download?ProjectName=cntk&DownloadId=1526166"><br><i>Source: https://cntk.codeplex.com</i></center>
-
-
-**Disclaimer**: per CNTK team's request, I helped providing [Torch](https://gist.github.com/zer0n/2f87060a054c09999812) and [Theano (via Keras)](https://gist.github.com/zer0n/2f87060a054c09999812) measurements. 
+TBD 
 
 ## Architecture
 Developer Zone
