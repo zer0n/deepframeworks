@@ -1,6 +1,6 @@
 # Evaluation of Deep Learning Toolkits
 
-**Disclaimer**: this research was done in late 2015 with slight modifications in early 2016. Many toolkits have improved significantly since then.
+**Warning**: this research was done in late 2015 with slight modifications in early 2016. Many toolkits have improved significantly since then.
 
 **Abstract.** In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: [Caffe](https://github.com/BVLC/caffe), [CNTK](https://cntk.codeplex.com/), [TensorFlow](https://github.com/tensorflow/tensorflow), [Theano](https://github.com/Theano/Theano), and [Torch](https://github.com/torch/torch7).
 
