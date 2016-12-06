@@ -2,7 +2,7 @@
 
 **Warning**: this research was done in late 2015 with slight modifications in early 2016. Many toolkits have improved significantly since then.
 
-**Abstract.** In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: [Caffe](https://github.com/BVLC/caffe), [CNTK](https://cntk.codeplex.com/), [TensorFlow](https://github.com/tensorflow/tensorflow), [Theano](https://github.com/Theano/Theano), and [Torch](https://github.com/torch/torch7).
+**Abstract.** In this study, I evaluate some popular deep learning toolkits. The candidates are listed in alphabetical order: [Caffe](https://github.com/BVLC/caffe), [CNTK](https://github.com/Microsoft/CNTK), [TensorFlow](https://github.com/tensorflow/tensorflow), [Theano](https://github.com/Theano/Theano), and [Torch](https://github.com/torch/torch7).
 
 I also provide ratings in some areas because for a lot of people, ratings are useful. However, keep in mind that ratings are inherently subjective [1].
 
@@ -38,9 +38,6 @@ However, its support for recurrent networks and language modeling in general is 
 CNTK is a deep learning system started by the speech people who [started the deep learning craze](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.185.1908&rep=rep1&type=pdf) and grown into a more general platform-independent deep learning system. It is better known in the speech community than in the general deep learning community.
 
 In CNTK (as in TensorFlow and Theano), a network is specified as a symbolic graph of vector operations, such as matrix add/multiply or convolution. A layer is just a composition of those operations. The fine granularity of the building blocks (operations) allows users to invent new complex layer types without implementing them in a low-level language (as in Caffe).
-
-As of today, CNTK is not usable for a variety of tasks such as sequence-2-sequence.
-
 
 #### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
 **State-of-the-art models**
@@ -85,7 +82,7 @@ Torch is more flexible than TensorFlow and Theano in that it is imperative while
 Caffe has `pycaffe` interface but that's a mere secondary alternative to the command line interface. The model has to be defined in protobuf (usually with a plain text editor), even if you use `pycaffe`.
 
 #### CNTK <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_2_and_a_half_stars.png">
-The way to use CNTK, similar to Caffe, is to specify a config file and run command line. CNTK is slightly worse than Caffe because there's no Python or any other high-level language interface.
+The way to use CNTK, similar to Caffe, is to specify a config file and run command line. CNTK has Python support since V2.0 and C# support in progress.
 
 
 #### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
@@ -187,7 +184,7 @@ Torch7 and nn libraries are also well-designed with clean, modular interfaces.
 
 
 ## Cross-platform
-Caffe, CNTK, and Theano work on all OSes. TensorFlow and Torch do not work on Windows and there's no known plan to port from either camp.
+Caffe, CNTK, TensorFlow and Theano work on all OSes. Torch does not work on Windows and there's no known plan to port from either camp.
 
 <br>
 ___ 
