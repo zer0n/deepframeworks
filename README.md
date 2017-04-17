@@ -88,7 +88,7 @@ The way to use CNTK, similar to Caffe, is to specify a config file and run comma
 #### TensorFlow <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
 TF supports two interfaces: Python and C++. This means that you can do experiments in a rich, high-level environment and deploy your model in an environment that requires native code or low latency.  
 
-It would be perfect if TF supports `F#` or `TypeScript`. The lack of static type in Python is just ... painful :).
+It would be perfect if TF supports `F#` or `TypeScript`. The lack of static type in Python is just ... painful :). You could however use, the similarily easy language Julia, that is also dynamic, but also has (optional) static types, with the [TensorFlow.jl](https://github.com/malmaud/TensorFlow.jl) wrapper that wraps the Python wrapper.
 
 #### Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_stars.png">
 Python
