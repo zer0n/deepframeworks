@@ -49,7 +49,7 @@ In CNTK (as in TensorFlow and Theano), a network is specified as a symbolic grap
 **New models**
 Since TF uses symbolic graph of vector operations approach, specifying a new network is fairly easy. Although it doesn't support symbolic loop yet (at least not well tested/documented, as of 05/2016), RNNs can be made easy and efficient using the [bucketing trick](https://www.tensorflow.org/versions/r0.8/tutorials/seq2seq/index.html#bucketing-and-padding).
 
-However, TF has a major weakness in terms of modeling flexibility. Every computational flow has be constructed as a static graph. That makes some computations difficult, such as [beam search](https://github.com/tensorflow/tensorflow/issues/654) (which is used frequently in sequence prediction tasks). 
+However, TF has a major weakness in terms of modeling flexibility. Every computational flow has be constructed as a static graph. That makes some computations difficult, such as [beam search](https://github.com/tensorflow/tensorflow/issues/654#issuecomment-289563944) (which is used frequently in sequence prediction tasks). 
 
 
 #### Theano <img src="http://www.wpclipart.com/signs_symbol/stars/5_star_rating_system/.cache/5_Star_Rating_System_4_and_a_half_stars.png">
